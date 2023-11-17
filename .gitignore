@@ -1,0 +1,7 @@
+/node_modules/
+/.vscode/
+/public/uploads/*
+/public/js-obfuscated/
+.env
+.idea
+package-lock.json
