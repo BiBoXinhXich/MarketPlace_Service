@@ -1,5 +1,6 @@
 const { SCHEMA_OPTION, ignoreModel } = require("../utils/constaints");
 const Ranking = require("./ranking.model");
+const USER = require("./user.model");
 
 const mongoose = require("mongoose");
 const { Schema } = mongoose;
@@ -67,3 +68,6 @@ userSchema.method({
 const User = mongoose.model("USER", userSchema, "USER");
 
 module.exports = User;
+module.exports = {
+	USER,
+};
