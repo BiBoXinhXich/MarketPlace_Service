@@ -1,7 +1,7 @@
-
 const { SCHEMA_OPTION, ignoreModel } = require("../utils/constaints");
 
 const mongoose = require("mongoose");
+const { ROLE } = require("../utils/role.enum");
 const { Schema } = mongoose;
 
 const userSchema = new Schema(
@@ -24,12 +24,13 @@ const userSchema = new Schema(
 			type: String,
 			default: "CUSTOMER",
 			enum: ["CUSTOMER", "MANAGER", "ADMIN"],
+			default: ROLE.CUSTOMER,
+			enum: Object.values(ROLE),
 		},
 		is_delete: { type: Boolean, default: false },
 	},
 	SCHEMA_OPTION
 );
-
 userSchema.static({
 	get: async function (_id) {
 		return await this.findOne({ _id }, ignoreModel(["password"]));
@@ -61,8 +62,12 @@ userSchema.method({
 
 				break;
 			}
+	getList: async function (page = 1, limit = 10) {
+		return await this.find().skip(page).limit(limit);
 	},
 });
+
+userSchema.method({});
 
 const User = mongoose.model("USER", userSchema, "USER");
 
