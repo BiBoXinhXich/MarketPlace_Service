@@ -9,6 +9,7 @@ const path = require("path");
 const cookieParser = require("cookie-parser");
 const logger = require("morgan");
 
+const indexRoute = require("./routes");
 const apiRoute = require("./routes");
 const authRoute = require("./routes/auth.route");
 const { initDatabase } = require("./configs");
@@ -33,7 +34,10 @@ app.use("/public", express.static(path.join(__dirname, "public")));
 //region init database
 initDatabase();
 //endregion
+
 //region setup routes
+app.use("/", indexRoute);
+
 app.get("/", (req, res) => {
 	res.json({ success: true, data: "MARKETPLACE SERVICE" });
 });
